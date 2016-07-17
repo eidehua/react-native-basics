@@ -13,6 +13,54 @@ import {
   Image
 } from 'react-native';
 
+class Blink extends Component {
+  constructor(props) {
+    // do with the props as usual
+    super(props);
+    // initial state
+    this.state = {showText: true};
+
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState({ showText: !this.state.showText });
+    }, 1000);
+  }
+
+  render() {
+    let display = this.state.showText ? this.props.text : ' ';
+    return (
+      <Text>{display}</Text>
+    );
+  }
+}
+
+// classes need to start with upper case letter!
+// Sometimes hot reload does not make everything work!
+    // EG when I change what this.state contains
+class NameChange extends Component {
+    constructor(props) {
+      // do with the props as usual
+      super(props);
+      // initial state
+      this.state = {name: 'Ed X'};
+
+      // Toggle the state every second
+      setInterval(() => {
+        if (this.state.name == 'Ed X'){
+          this.setState({ name :'Jiaxin L' });
+        } else {
+          this.setState({ name : 'Ed X' });
+        }
+      }, 1000);
+    }
+
+    render() {
+      let display = this.state.name;
+      return (
+        <Text>Hi {display}</Text>
+      );
+    }
+}
 
 class Greeting extends Component {
   render() {
@@ -42,6 +90,8 @@ class AwesomeProject extends Component {
         <Greeting name='Rexxar' />
         <Greeting name='Jaina' />
         <Greeting name='Valeera' />
+        <Blink text='blink text'/>
+        <NameChange/>
       </View>
     );
   }
