@@ -92,11 +92,17 @@ class AwesomeProject extends Component {
         <Greeting name='Valeera' />
         <Blink text='blink text'/>
         <NameChange/>
+        <Text style={styles.red}>just red</Text>
+        <Text style={styles.bigblue}>just bigblue</Text>
+        <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
+        <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
       </View>
     );
   }
 }
 
+// the last style in the array has precedence, so you can use this to inherit styles.
+// One common pattern is to make your component accept a style prop which in turn is used to style subcomponents. You can use this to make styles "cascade" they way they do in CSS.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -114,6 +120,14 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  bigblue: {
+  color: 'blue',
+  fontWeight: 'bold',
+  fontSize: 30,
+  },
+  red: {
+    color: 'red',
+ },
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
