@@ -76,27 +76,40 @@ class AwesomeProject extends Component {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
     };
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-        <Image source={pic} style={{width: 193, height: 110}}/>
-        <Greeting name='Rexxar' />
-        <Greeting name='Jaina' />
-        <Greeting name='Valeera' />
-        <Blink text='blink text'/>
-        <NameChange/>
-        <Text style={styles.red}>just red</Text>
-        <Text style={styles.bigblue}>just bigblue</Text>
-        <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
-        <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
+      <View>
+        <View style={ {height: 50, flexDirection: 'row', justifyContent: 'flex-end'} }>
+          <View style={{width: 50, backgroundColor: 'red'}} />
+        </View>
+        <View style={{
+          height: 50, flexDirection: 'row', justifyContent: 'center'
+        }}>
+          <View style={{width: 50, backgroundColor: 'powderblue'}} />
+          <View style={{width: 50, backgroundColor: 'skyblue'}} />
+          <View style={{width: 50, backgroundColor: 'steelblue'}} />
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.welcome}>
+            Welcome to React Native!
+          </Text>
+          <Text style={styles.instructions}>
+            To get started, edit index.android.js
+          </Text>
+          <Text style={styles.instructions}>
+            Shake or press menu button for dev menu
+          </Text>
+          <Image source={pic} style={{width: 193, height: 110}}/>
+          <Greeting name='Rexxar' />
+          <Greeting name='Jaina' />
+          <Greeting name='Valeera' />
+          <Blink text='blink text'/>
+          <NameChange/>
+          <Text style={styles.red}>just red</Text>
+          <Text style={styles.bigblue}>just bigblue</Text>
+          <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
+          <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
+       </View>
       </View>
+
     );
   }
 }
