@@ -12,7 +12,8 @@ import {
   TextInput,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  ListView
 } from 'react-native';
 
 class Blink extends Component {
@@ -75,7 +76,14 @@ class Greeting extends Component {
 class AwesomeProject extends Component {
   constructor(props) {
     super(props);
-    this.state = {text: '', res:'results good!'};
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      text: '',
+      res:'results good!',
+      dataSource: ds.cloneWithRows([
+        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+      ])
+    };
   }
   render() {
     let pic = {
@@ -125,7 +133,20 @@ class AwesomeProject extends Component {
           <Text style={styles.bigblue}>just bigblue</Text>
           <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
           <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
-       </View>
+        </View>
+       { /* ScrollView works best to present a small amount of things of a limited
+            size. All the elements and views of a ScrollView are rendered, even if
+            they are not currently shown on the screen.
+            Use a listview if you want a long list of items
+              This only renders elements that are currently showing on the screen*/}
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) =>
+            <View>
+              <View style={{height:100, width: 50, backgroundColor: 'powderblue'}} />
+              <Text>{rowData}</Text>
+            </View>}
+        />
       </ScrollView>
 
     );
@@ -136,7 +157,7 @@ class AwesomeProject extends Component {
 // One common pattern is to make your component accept a style prop which in turn is used to style subcomponents. You can use this to make styles "cascade" they way they do in CSS.
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // removed flex: 1 !!! if this has flex 1, a sibling listview can't dsiplay all contents!
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
