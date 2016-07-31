@@ -9,8 +9,10 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
   View,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 
 class Blink extends Component {
@@ -71,12 +73,31 @@ class Greeting extends Component {
 }
 
 class AwesomeProject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: '', res:'results good!'};
+  }
   render() {
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
     };
     return (
-      <View>
+      <ScrollView>
+      {/* Large Container of multiple sub views */}
+        {/* text input */}
+        <View style={{padding: 10}}>
+          <TextInput
+            style={{height: 40}}
+            placeholder="Type here to translate!"
+            onChangeText={(input) => this.setState({text: input})}
+            onSubmitEditing={() => this.setState( {res:'submitted!'} ) }
+          />
+          <Text style={{padding: 10, fontSize: 42}}>
+            {this.state.res}
+            {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+          </Text>
+        </View>
+        {/* flexbox testing */}
         <View style={ {height: 50, flexDirection: 'row', justifyContent: 'flex-end'} }>
           <View style={{width: 50, backgroundColor: 'red'}} />
         </View>
@@ -92,9 +113,6 @@ class AwesomeProject extends Component {
             Welcome to React Native!
           </Text>
           <Text style={styles.instructions}>
-            To get started, edit index.android.js
-          </Text>
-          <Text style={styles.instructions}>
             Shake or press menu button for dev menu
           </Text>
           <Image source={pic} style={{width: 193, height: 110}}/>
@@ -108,7 +126,7 @@ class AwesomeProject extends Component {
           <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
           <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
        </View>
-      </View>
+      </ScrollView>
 
     );
   }
