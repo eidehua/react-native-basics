@@ -83,11 +83,26 @@ class AwesomeProject extends Component {
       dataSource: ds.cloneWithRows([
         'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
       ]),
-      movieTitle : 'loading from backend...'
+      movieTitle : 'loading from backend...',
+      movieYear : 'loading from backend...',
+      movieTitle2 : 'loading from backend...'
     };
+    // getMoviesFromApiAsync returns a promise. When it is done, it returns responseJson.movies, the final return value (of the chain of thens).
+    // this is used to update the state of movieTitle
     this.getMoviesFromApiAsync().done( (movies) => this.setState( {movieTitle: movies[1].title}));
+    // using async call, with the .done()
+    this.getMoviesFromApi().done( (movies) => this.setState( {movieYear: movies[1].releaseYear}) );
+    // using await (await has to be called in an async function)
+    this.setMovieTitleAwait();
   }
 
+  async setMovieTitleAwait()
+  {
+
+    var m = (movies) => {this.setState( {movieTitle2: movies[0].title})}
+    m(await this.getMoviesFromApi());
+
+  }
   // using the promise system
   // fetch returns a promise.
   // We call .then on the promise, aka what to do after the promise has been resolved
@@ -165,7 +180,11 @@ class AwesomeProject extends Component {
           <Text style={styles.bigblue}>just bigblue</Text>
           <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
           <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
+          {/* testing backend calls */}
           <Text> {this.state.movieTitle} </Text>
+          <Text> {this.state.movieYear} </Text>
+          <Text> {this.state.movieTitle2} </Text>
+
         </View>
        { /* ScrollView works best to present a small amount of things of a limited
             size. All the elements and views of a ScrollView are rendered, even if
