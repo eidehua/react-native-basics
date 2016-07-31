@@ -98,10 +98,9 @@ class AwesomeProject extends Component {
 
   async setMovieTitleAwait()
   {
-
-    var m = (movies) => {this.setState( {movieTitle2: movies[0].title})}
-    m(await this.getMoviesFromApi());
-
+    var m = (movies) => {this.setState( {movieTitle2: movies[0].title})} // creates an arrow function
+    m(await this.getMoviesFromApi()); // calls it, populates the "movies" input with the return from getMoviesFromApi, awaits for the result
+    //await seems to wait for a PROMISE function to finish, then grab the return in the promise 
   }
   // using the promise system
   // fetch returns a promise.
@@ -139,6 +138,7 @@ class AwesomeProject extends Component {
     return (
       <ScrollView>
       {/* Large Container of multiple sub views */}
+
         {/* text input */}
         <View style={{padding: 10}}>
           <TextInput
@@ -152,6 +152,7 @@ class AwesomeProject extends Component {
             {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
           </Text>
         </View>
+
         {/* flexbox testing */}
         <View style={ {height: 50, flexDirection: 'row', justifyContent: 'flex-end'} }>
           <View style={{width: 50, backgroundColor: 'red'}} />
@@ -163,6 +164,7 @@ class AwesomeProject extends Component {
           <View style={{width: 50, backgroundColor: 'skyblue'}} />
           <View style={{width: 50, backgroundColor: 'steelblue'}} />
         </View>
+
         <View style={styles.container}>
           <Text style={styles.welcome}>
             Welcome to React Native!
@@ -180,6 +182,7 @@ class AwesomeProject extends Component {
           <Text style={styles.bigblue}>just bigblue</Text>
           <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
           <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
+
           {/* testing backend calls */}
           <Text> {this.state.movieTitle} </Text>
           <Text> {this.state.movieYear} </Text>
@@ -191,6 +194,7 @@ class AwesomeProject extends Component {
             they are not currently shown on the screen.
             Use a listview if you want a long list of items
               This only renders elements that are currently showing on the screen*/}
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
