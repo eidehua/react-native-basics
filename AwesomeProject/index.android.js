@@ -82,9 +82,41 @@ class AwesomeProject extends Component {
       res:'results good!',
       dataSource: ds.cloneWithRows([
         'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-      ])
+      ]),
+      movieTitle : 'loading from backend...'
     };
+    this.getMoviesFromApiAsync().done( (movies) => this.setState( {movieTitle: movies[1].title}));
   }
+
+  // using the promise system
+  // fetch returns a promise.
+  // We call .then on the promise, aka what to do after the promise has been resolved
+  // which then also returns a promise that can be chained
+  getMoviesFromApiAsync() {
+    return fetch('http://facebook.github.io/react-native/movies.json') //fetch returns a promise
+      .then((response) => response.json()) // Body.json() returns another promise
+      .then((responseJson) => {
+        return responseJson.movies;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  // ES7 we can await a async function
+  // kind of like syntatic surga on top of promises
+  async getMoviesFromApi() {
+    try {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+      // https://developer.mozilla.org/en-US/docs/Web/API/Request
+      let response = await fetch('http://facebook.github.io/react-native/movies.json');
+      let responseJson = await response.json();
+      return responseJson.movies;
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
   render() {
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
@@ -133,6 +165,7 @@ class AwesomeProject extends Component {
           <Text style={styles.bigblue}>just bigblue</Text>
           <Text style={[styles.bigblue, styles.red]}>bigblue, then red</Text>
           <Text style={[styles.red, styles.bigblue]}>red, then bigblue</Text>
+          <Text> {this.state.movieTitle} </Text>
         </View>
        { /* ScrollView works best to present a small amount of things of a limited
             size. All the elements and views of a ScrollView are rendered, even if
