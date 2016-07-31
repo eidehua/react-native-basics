@@ -89,9 +89,9 @@ class AwesomeProject extends Component {
     };
     // getMoviesFromApiAsync returns a promise. When it is done, it returns responseJson.movies, the final return value (of the chain of thens).
     // this is used to update the state of movieTitle
-    this.getMoviesFromApiAsync().done( (movies) => this.setState( {movieTitle: movies[1].title}));
-    // using async call, with the .done()
-    this.getMoviesFromApi().done( (movies) => this.setState( {movieYear: movies[1].releaseYear}) );
+    this.getMoviesFromApiAsync().then( (movies) => this.setState( {movieTitle: movies[1].title}));
+    // using async call, with the .then()
+    this.getMoviesFromApi().then( (movies) => this.setState( {movieYear: movies[1].releaseYear}) );
     // using await (await has to be called in an async function)
     this.setMovieTitleAwait();
   }
@@ -100,7 +100,7 @@ class AwesomeProject extends Component {
   {
     var m = (movies) => {this.setState( {movieTitle2: movies[0].title})} // creates an arrow function
     m(await this.getMoviesFromApi()); // calls it, populates the "movies" input with the return from getMoviesFromApi, awaits for the result
-    //await seems to wait for a PROMISE function to finish, then grab the return in the promise 
+    //await seems to wait for a PROMISE function to finish, then grab the return in the promise
   }
   // using the promise system
   // fetch returns a promise.
